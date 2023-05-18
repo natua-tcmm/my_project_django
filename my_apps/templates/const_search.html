@@ -1,0 +1,137 @@
+{% extends './base/base.html' %}
+{% load static %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">クイック定数検索</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            {% if is_beta %}
+            {% include "./common/info_alert.html" %}
+            {% endif %}
+
+            <!-- ここにいろいろ書く -->
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">クイック定数検索 - CHUNITHM</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row justify-content-center">
+                        <div class="col-10">
+
+                            <form id="ajax-search" action="{% url 'my_apps:const_search_page' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="input-group input-group-lg">
+                                    <input name="query" type="text" class="form-control" id="query"
+                                        placeholder="search..." aria-label="search" aria-describedby="inputHelp">
+                                    <button name="submit" type="button" class="btn btn-outline-primary "
+                                        id="button-addon2">検索</button>
+                                </div>
+                                <div id="inputHelp" class="form-text">
+                                    曲名(表記・読み)、アーティスト名(表記)で検索できます。
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-10">
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            <p id="search_hit_text">検索結果 : - 件</p>
+                        </div>
+                        <div class="col-5">
+                            <p id="loading_text" class="text-right" style="display: none;">検索中...</p>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-10">
+                            <ul id="post-songs" class="list-group">
+
+                                {% for song in song_data|slice:":30" %}
+                                {% include "const_search/song_info.html" %}
+                                {% endfor %}
+
+                                {% include "const_search/too_many_result_info.html" %}
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer">
+                    <p class="mb-0 float-right fs-6 text-black-50">情報提供:xxx</p>
+                </div>
+
+            </div>
+
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- Ajaxとか -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $('#ajax-search').on('submit input', function (e) {
+
+        $("#loading_text").css("display", "block");
+
+        // 通常の送信処理を止める
+        event.preventDefault();
+
+        // 送信する
+        $.ajax({
+            'url': '{% url "my_apps:const_search_page" %}',
+            'type': 'POST',
+            'data': {
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+                'query': $('#query').val(),
+            },
+            'dataType': 'json',
+        })
+            //成功時
+            .done(function (response) {
+                // 今表示されてるやつを消す
+                $(".song-group-item").remove();
+                // 新しく表示する
+                for (var i = 0; i < response.search_response.length; i++)
+                    $("#post-songs").prepend(response.search_response[i]);
+
+                $("#search_hit_text").html("検索結果 : " + response.search_hit_count + " 件")
+                $("#loading_text").css("display", "none");
+            })
+            //失敗時
+            .fail(function () {
+                // 今表示されてるやつを消す
+                $(".song-group-item").remove();
+            })
+
+    });
+
+    // 通常の送信処理を止める
+    event.preventDefault();
+
+</script>
+{% endblock content %}

@@ -1,0 +1,58 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'my_apps:toppage' %}" class="brand-link">
+        <span class="brand-text font-weight-light">MyApp</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
+                data-accordion="false">
+                <li class="nav-item">
+                    <a href="{% url 'my_apps:toppage' %}" class="nav-link {% if request.path == '/my_apps/top' %}active{% endif %} ">
+                        <p>
+                            トップページ
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item {% if is_app %}menu-open{% endif %}">
+                    <a href="#" class="nav-link {% if is_app  %}active{% endif %}">
+                        <p>
+                            アプリケーション
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'my_apps:const_search_page' %}" class="nav-link {% if request.path == '/my_apps/const_search' %}active{% endif %} ">
+                                <p>クイック定数検索</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'my_apps:app2page' %}" class="nav-link {% if request.path == '/my_apps/app2' %}active{% endif %} ">
+                                <p>App2</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./index3.html" class="nav-link">
+                                <p>いい感じのアプリ</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/widgets.html" class="nav-link">
+                        <p>
+                            その他
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+
+</aside>
