@@ -14,27 +14,37 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ベースディレクトリの設定
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+###################################
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+# シークレットキーの設定 こちらではランダム生成としている
 from django.core.management.utils import get_random_secret_key
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# デバッグモードの可否
 DEBUG = False
 
+# 配信できるホスト/ドメイン名
 ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'natua.pythonanywhere.com']
 
+# Cookieの設定 Trueだと安全
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+
+###################################
 # Application definition
 
+# 有効となるアプリケーション
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +55,7 @@ INSTALLED_APPS = [
     "my_apps.apps.MyAppsConfig",
 ]
 
+# 有効となるミドルウェア
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,8 +66,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 最初に見に行くURLルーティングテーブルの場所
 ROOT_URLCONF = 'my_pages_project.urls'
 
+# テンプレートエンジン
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,12 +86,15 @@ TEMPLATES = [
     },
 ]
 
+# WSGIの場所
 WSGI_APPLICATION = 'my_pages_project.wsgi.application'
 
 
+###################################
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# データベースの場所
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,9 +103,11 @@ DATABASES = {
 }
 
 
+###################################
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
+# 有効なパスワードバリデータたち
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -106,32 +124,46 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+###################################
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+# 言語コード
 LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+# タイムゾーン
+TIME_ZONE = 'japan'
 
+# 翻訳・タイムゾーンを使用するかどうか
 USE_I18N = True
-
 USE_TZ = True
 
+
+###################################
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# (appごとの)staticファイルの場所
 STATIC_URL = '/static/'
+
+# staticファイルの読み込み場所
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_DIRS = [
 #     BASE_DIR / 'hoge',
 # ]
 
 
+###################################
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+# Primary_key=Trueのフィールドを持たないモデルに使用するデフォルトのフィールドタイプ。
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+###################################
+# local_settings.pyのロード
 
 try:
     from .local_settings import *
