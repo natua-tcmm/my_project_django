@@ -132,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ja'
 
 # タイムゾーン
-TIME_ZONE = 'JP'
+TIME_ZONE = 'Asia/Tokyo'
 
 # 翻訳・タイムゾーンを使用するかどうか
 USE_I18N = True
