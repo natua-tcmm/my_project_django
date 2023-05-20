@@ -31,7 +31,18 @@
                     <div class="card card-primary card-outline">
 
                         <div class="card-header">
-                            <h3 class="card-title">クイック定数検索 - CHUNITHM</h3>
+                            <h3 class="card-title"><span class="mr-3">クイック定数検索</span>
+
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-outline-primary active">
+                                        <input type="radio" name="options" id="option_a1" autocomplete="off" checked="">
+                                        CHUNITHM版
+                                    </label>
+                                    <label class="btn btn-sm btn-outline-primary disabled">
+                                        <input type="radio" name="options" id="option_a2" autocomplete="off"> オンゲキ版
+                                    </label>
+                                </div>
+                            </h3>
                         </div>
 
                         <div class="card-body">
@@ -43,15 +54,30 @@
                                     <form id="ajax-search" action="{% url 'my_apps:const_search_page' %}" method="POST">
                                         {% csrf_token %}
                                         <div class="input-group input-group-lg">
+
                                             <input name="query" type="text" class="form-control" id="query"
-                                                placeholder="search..." aria-label="search"
+                                                placeholder="検索…" aria-label="search"
                                                 aria-describedby="inputHelp">
-                                            <button name="submit" type="button" class="btn btn-outline-primary "
-                                                id="button-addon2">検索</button>
+
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                                        class="fas fa-cog"></i> </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <h6 class="dropdown-header">検索設定</h6>
+                                                    <a class="dropdown-item" href="#">Bootstrapの</a>
+                                                    <a class="dropdown-item" href="#">Multiselectってやつ</a>
+                                                    <div role="separator" class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">使う予定だよーーーーーー</a>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div id="inputHelp" class="form-text">
+
+                                        <small id="inputHelp" class="form-text text-muted">
                                             曲名(表記・読み)、アーティスト名(表記)で検索できます。
-                                        </div>
+                                        </small>
+
                                     </form>
 
                                 </div>
