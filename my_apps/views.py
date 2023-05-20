@@ -12,13 +12,14 @@ is_beta = True
 
 # トップ画面
 def top(request):
-    return render(request, 'top.html',{ "is_beta":is_beta, "is_app":False })
+    context = { "title":"△Natua♪▽のツールとか保管所" ,"is_beta":is_beta, "is_app":False }
+    return render(request, 'top.html',context=context)
 
 # 定数検索ページ
 def const_search(request):
 
     song_data = SongData.objects.all()
-    context = { "is_beta":is_beta, "is_app":True, "song_data":song_data }
+    context = { "title":"クイック定数検索", "is_beta":is_beta, "is_app":True, "song_data":song_data }
 
     if request.POST:
 
@@ -58,4 +59,5 @@ def const_search(request):
 
 # app2
 def app2(request):
-    return render(request, 'app2.html',{ "is_beta":is_beta, "is_app":True })
+    context = { "title":"アプリ2(仮)" ,"is_beta":is_beta, "is_app":False }
+    return render(request, 'app2.html',context=context)
