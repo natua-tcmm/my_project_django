@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="jp" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -46,6 +46,11 @@
             {% block content %}
             {% endblock %}
         </div>
+
+        <!-- back-to-top -->
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+            <i class="fas fa-chevron-up"></i>
+        </a>
 
         <!-- footer -->
         {% include "./footer.html" %}
