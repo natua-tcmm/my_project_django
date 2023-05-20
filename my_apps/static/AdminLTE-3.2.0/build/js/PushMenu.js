@@ -32,7 +32,7 @@ const CLASS_NAME_IS_OPENING = 'sidebar-is-opening'
 const CLASS_NAME_CLOSED = 'sidebar-closed'
 
 const Default = {
-  autoCollapseSize: 992,
+  // autoCollapseSize: 992,
   enableRemember: false,
   noTransitionAfterReload: true,
   animationSpeed: 300
