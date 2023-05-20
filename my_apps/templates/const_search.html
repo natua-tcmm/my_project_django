@@ -1,6 +1,7 @@
 {% extends './base/base.html' %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'const_search/style.css' %}">
 <!-- Content Wrapper. Contains page content -->
 <div class="container">
     <!-- Content Header (Page header) -->
@@ -24,68 +25,104 @@
             {% endif %}
 
             <!-- ここにいろいろ書く -->
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h3 class="card-title">クイック定数検索 - CHUNITHM</h3>
-                </div>
+            <!-- 検索のカード -->
+            <div class="row">
+                <div class="col">
+                    <div class="card card-primary card-outline">
 
-                <div class="card-body">
+                        <div class="card-header">
+                            <h3 class="card-title">クイック定数検索 - CHUNITHM</h3>
+                        </div>
 
-                    <div class="row justify-content-center">
-                        <div class="col-10">
+                        <div class="card-body">
 
-                            <form id="ajax-search" action="{% url 'my_apps:const_search_page' %}" method="POST">
-                                {% csrf_token %}
-                                <div class="input-group input-group-lg">
-                                    <input name="query" type="text" class="form-control" id="query"
-                                        placeholder="search..." aria-label="search" aria-describedby="inputHelp">
-                                    <button name="submit" type="button" class="btn btn-outline-primary "
-                                        id="button-addon2">検索</button>
+                            <!-- 検索窓 -->
+                            <div class="row justify-content-center">
+                                <div class="col-10">
+
+                                    <form id="ajax-search" action="{% url 'my_apps:const_search_page' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="input-group input-group-lg">
+                                            <input name="query" type="text" class="form-control" id="query"
+                                                placeholder="search..." aria-label="search"
+                                                aria-describedby="inputHelp">
+                                            <button name="submit" type="button" class="btn btn-outline-primary "
+                                                id="button-addon2">検索</button>
+                                        </div>
+                                        <div id="inputHelp" class="form-text">
+                                            曲名(表記・読み)、アーティスト名(表記)で検索できます。
+                                        </div>
+                                    </form>
+
                                 </div>
-                                <div id="inputHelp" class="form-text">
-                                    曲名(表記・読み)、アーティスト名(表記)で検索できます。
+                            </div>
+
+                            <!-- 区切りhr -->
+                            <div class="row justify-content-center">
+                                <div class="col-10">
+                                    <hr />
                                 </div>
-                            </form>
+                            </div>
+
+                            <!-- 検索情報 -->
+                            <div class="row justify-content-center">
+                                <div class="col-5">
+                                    <p id="search_hit_text">検索結果 : - 件</p>
+                                </div>
+                                <div class="col-5">
+                                    <p id="loading_text" class="text-right" style="display: none;">検索中...</p>
+                                </div>
+                            </div>
+
+                            <!-- 検索結果 -->
+                            <div class="row justify-content-center">
+                                <div class="col-10">
+                                    <ul id="post-songs" class="list-group">
+
+                                        {% for song in song_data|slice:":30" %}
+                                        {% include "const_search/song_info.html" %}
+                                        {% endfor %}
+
+                                        {% include "const_search/too_many_result_info.html" %}
+
+                                    </ul>
+                                </div>
+                            </div>
 
                         </div>
+
+                        <div class="card-footer">
+                            <p class="mb-0 float-right fs-6 text-black-50">情報提供:xxx</p>
+                        </div>
+
                     </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-10">
-                            <hr />
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-5">
-                            <p id="search_hit_text">検索結果 : - 件</p>
-                        </div>
-                        <div class="col-5">
-                            <p id="loading_text" class="text-right" style="display: none;">検索中...</p>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-10">
-                            <ul id="post-songs" class="list-group">
-
-                                {% for song in song_data|slice:":30" %}
-                                {% include "const_search/song_info.html" %}
-                                {% endfor %}
-
-                                {% include "const_search/too_many_result_info.html" %}
-
-                            </ul>
-                        </div>
-                    </div>
-
                 </div>
-
-                <div class="card-footer">
-                    <p class="mb-0 float-right fs-6 text-black-50">情報提供:xxx</p>
-                </div>
-
             </div>
+
+            <!-- 権利表示 -->
+            <div class="row">
+                <div class="col">
+                    <div class="card card-outline card-info collapsed-card">
+
+                        <div class="card-header">
+                            <h3 class="card-title">著作権表示</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                        class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body rights-info" style="display: none;">
+                            {% for r in rights %}
+                            <p class="mb-0">{{r}}</p>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
 
         </div><!-- /.container-fluid -->
     </section>

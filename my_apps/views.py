@@ -5,6 +5,8 @@ from django.db.models import Q
 
 from .models import SongData
 
+import requests
+
 # β版のメッセージを出すかを決めるやつ
 is_beta = True
 
@@ -45,6 +47,11 @@ def const_search(request):
                 "search_hit_count":search_hit_count,
             }
         return JsonResponse(d)
+
+    # 著作権表示
+    response= requests.get("https://chunithm.sega.jp/storage/json/rightsInfo.json")
+    response.encoding = response.apparent_encoding
+    context["rights"]  = response.json()
 
     # renderする
     return render(request, 'const_search.html',context=context)
