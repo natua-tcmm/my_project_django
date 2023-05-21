@@ -10,3 +10,6 @@
 .border-ultima{
     border-right: 4px solid #160505;
 }
+.song-description:hover{
+    background-color: initial;
+}
