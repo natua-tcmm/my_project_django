@@ -56,8 +56,7 @@
                                         <div class="input-group input-group-lg">
 
                                             <input name="query" type="text" class="form-control" id="query"
-                                                placeholder="検索…" aria-label="search"
-                                                aria-describedby="inputHelp">
+                                                placeholder="検索…" aria-label="search" aria-describedby="inputHelp">
 
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button"
@@ -103,7 +102,7 @@
                             <!-- 検索結果 -->
                             <div class="row justify-content-center">
                                 <div class="col-10">
-                                    <ul id="post-songs" class="list-group">
+                                    <div id="post-songs" class="list-group">
 
                                         {% for song in song_data|slice:":30" %}
                                         {% include "const_search/song_info.html" %}
@@ -111,7 +110,7 @@
 
                                         {% include "const_search/too_many_result_info.html" %}
 
-                                    </ul>
+                                    </div>
                                 </div>
                             </div>
 

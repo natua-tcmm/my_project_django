@@ -1,11 +1,54 @@
-<li class="list-group-item song-group-item">
+<a data-toggle="collapse" href="#c_{{song.id}}" class="list-group-item list-group-item-action song-group-item"
+    aria-expanded="false" aria-controls="c_{{song.id}}">
+
     <div class="row">
-        <div class="col-10">
+        <div class="col">
             <h5 class="mb-1">{{ song.song_name }}</h5>
             <span class="text-secondary">{{ song.song_auther }}</span>
         </div>
-        <div class="col-2 d-flex justify-content-end align-items-center">
+        <div class="col-sm-auto d-flex justify-content-end align-items-center border-master">
             <h5 class="mb-0 font-weight-bold">{{ song.master_const }}</h5>
         </div>
     </div>
-</li>
+
+    <div id="c_{{song.id}}" class="collapse">
+        <hr />
+        <div class="container">
+
+            <div class="row">
+                <div class="col d-flex align-items-center">
+                    <p class="mb-1 mt-1">ジャンル: {{song.song_catname}}</p>
+                </div>
+                <div class="col-sm-auto d-flex justify-content-end align-items-center border-expert pt-1 pb-1">
+                    {% if song.expert_notes != 0 %}<p class="mb-1 mt-1 pr-2 border-right">{{song.expert_notes}} Notes
+                    </p>{% endif %}
+                    <h5 class="pl-2 mb-1 mt-1">{% if song.expert_const != 0 %}<span class="font-weight-bold">{{ song.expert_const }}</span>{% else %}<span class="text-black-50 h6">No Data</span>{% endif %}</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col d-flex align-items-center">
+                    <p class="mb-1 mt-1">BPM: {{song.song_bpm}}</p>
+                </div>
+                <div class="col-sm-auto d-flex justify-content-end align-items-center border-master pt-1 pb-1">
+                    {% if song.master_notes != 0 %}<p class="mb-1 mt-1 pr-2 border-right">{{song.master_notes}} Notes
+                    </p>{% endif %}
+                    <h5 class="pl-2 mb-1 mt-1">{% if song.master_const != 0 %}<span class="font-weight-bold">{{ song.master_const }}</span>{% else %}<span class="text-black-50 h6">No Data</span>{% endif %}</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col d-flex align-items-center">
+                    <p class="mb-1 mt-1">収録日: {{song.song_release}}</p>
+                </div>
+                <div class="col-sm-auto d-flex justify-content-end align-items-center border-ultima pt-1 pb-1">
+                    {% if song.ultima_notes != 0 %}<p class="mb-1 mt-1 pr-2 border-right">{{song.ultima_notes}} Notes
+                    </p>{% endif %}
+                    <h5 class="pl-2 mb-1 mt-1">{% if song.ultima_const != 0 %}<span class="font-weight-bold">{{ song.ultima_const }}</span>{% else %}<span class="text-black-50 h6">No Data</span>{% endif %}</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</a>
