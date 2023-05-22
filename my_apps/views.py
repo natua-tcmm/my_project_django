@@ -7,19 +7,24 @@ from .models import SongData
 
 import requests,time
 
-# β版のメッセージを出すかを決めるやつ
-is_beta = True
+# --------------------------------------------------
 
 # トップ画面
 def top(request):
-    context = { "title":"△Natua♪▽のツールとか保管所" ,"is_beta":is_beta, "is_app":False }
+    context = { "title":"△Natua♪▽のツールとか保管所" ,"is_beta":True, "is_app":False }
     return render(request, 'top.html',context=context)
+
+# 404ページを見るためのview
+def preview404(request):
+    return render(request,"404.html")
+
+# --------------------------------------------------
 
 # 定数検索ページ
 def const_search(request):
 
     song_data = SongData.objects.all()
-    context = { "title":"クイック定数検索", "is_beta":is_beta, "is_app":True, "song_data":song_data, "song_data_len":len(song_data) }
+    context = { "title":"クイック定数検索", "is_beta":False, "is_app":True, "song_data":song_data, "song_data_len":len(song_data) }
 
     if request.POST:
 
@@ -86,5 +91,5 @@ def const_search(request):
 
 # app2
 def app2(request):
-    context = { "title":"アプリ2(仮)" ,"is_beta":is_beta, "is_app":False }
+    context = { "title":"アプリ2(仮)" ,"is_beta":True, "is_app":True }
     return render(request, 'app2.html',context=context)

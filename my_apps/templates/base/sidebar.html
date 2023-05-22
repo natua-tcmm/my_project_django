@@ -20,6 +20,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="404.html" class="nav-link {% if request.path == '' %}active{% endif %} ">
+                        <i class="nav-icon far fa-address-card"></i>
+                        <p>
+                            私について
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">各種リンク</li>
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link {% if is_app  %}active{% endif %}">
@@ -38,14 +46,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'my_apps:app2page' %}"
-                                class="nav-link {% if request.path == '/my_apps/app2' %}active{% endif %} ">
+                            <a href="404.html" class="nav-link {% if request.path == '' %}active{% endif %} ">
                                 <i class="nav-icon far fa-question-circle"></i>
-                                <p>App2</p>
+                                <p>なにかしらのアプリ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="404.html" class="nav-link">
                                 <i class="nav-icon far fa-question-circle"></i>
                                 <p>いい感じのアプリ</p>
                             </a>
@@ -53,9 +60,9 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
+                    <a href="404.html" class="nav-link">
                         <i class="nav-icon far fa-question-circle"></i>
-                        <p> その他 </p>
+                        <p>その他のなんか</p>
                     </a>
                 </li>
             </ul>
