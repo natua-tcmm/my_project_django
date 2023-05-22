@@ -56,19 +56,12 @@
                                         <div class="input-group input-group-lg">
 
                                             <input name="query" type="text" class="form-control" id="query"
-                                                placeholder="検索…" aria-label="search" aria-describedby="inputHelp">
+                                                placeholder="検索…" aria-label="search" aria-describedby="inputHelp"
+                                                autocomplete="off">
 
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                                                        class="fas fa-cog"></i> </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <h6 class="dropdown-header">検索設定</h6>
-                                                    <a class="dropdown-item" href="#">Bootstrapの</a>
-                                                    <a class="dropdown-item" href="#">Multiselectってやつ</a>
-                                                    <div role="separator" class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">使う予定だよーーーーーー</a>
-                                                </div>
+                                                <button id="clear-button" class="btn btn-outline-secondary" type="button"><i
+                                                        class="fas fa-ban"></i> <span class="">Clear</span></button>
                                             </div>
 
                                         </div>
@@ -92,10 +85,12 @@
                             <!-- 検索情報 -->
                             <div class="row justify-content-center">
                                 <div class="col-5">
-                                    <p id="search_hit_text">検索結果 : - 件</p>
+                                    <p><span id="search_hit_text">検索結果 : - 件</span> <i id="loading_text"
+                                            style="display: none;" class="ml-2 fas fa-spinner fa-pulse"></i>
+                                    </p>
                                 </div>
                                 <div class="col-5">
-                                    <p id="loading_text" class="text-right" style="display: none;">検索中...</p>
+                                    <p> </p>
                                 </div>
                             </div>
 
@@ -160,9 +155,21 @@
 <!-- Ajaxとか -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    $('#ajax-search').on('submit input', function (e) {
+    // クリアボタンの処理
+    $("#clear-button").on("click",function(e){
+        $("#query").val("")
+        search_songs(e)
+    })
 
-        $("#loading_text").css("display", "block");
+    // ajax送信
+    $('#ajax-search').on('submit input', function (e) {
+        search_songs(e)
+    });
+
+    // 楽曲検索
+    var search_songs = function(e){
+
+        $("#loading_text").css("display", "");
 
         // 通常の送信処理を止める
         event.preventDefault();
@@ -194,7 +201,8 @@
                 $(".song-group-item").remove();
             })
 
-    });
+    }
+
 
     // 通常の送信処理を止める
     event.preventDefault();

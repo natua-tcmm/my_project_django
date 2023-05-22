@@ -5,7 +5,7 @@ from django.db.models import Q
 
 from .models import SongData
 
-import requests
+import requests,time
 
 # β版のメッセージを出すかを決めるやつ
 is_beta = True
@@ -47,6 +47,9 @@ def const_search(request):
                 "search_response":song_response[::-1],
                 "search_hit_count":search_hit_count,
             }
+
+        # time.sleep(1)
+
         return JsonResponse(d)
 
     # 著作権表示
