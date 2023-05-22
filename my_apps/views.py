@@ -19,19 +19,40 @@ def top(request):
 def const_search(request):
 
     song_data = SongData.objects.all()
-    context = { "title":"クイック定数検索", "is_beta":is_beta, "is_app":True, "song_data":song_data }
+    context = { "title":"クイック定数検索", "is_beta":is_beta, "is_app":True, "song_data":song_data, "song_data_len":len(song_data) }
 
     if request.POST:
 
         # POSTから検索queryを取得
-        query = request.POST.get("query")
+        post = request.POST
+        query = post.get("query")
+        is_use_name = True if post.get("is_use_name")=="true" else False
+        is_use_reading = True if post.get("is_use_reading")=="true" else False
+        is_use_artists = True if post.get("is_use_artists")=="true" else False
+
 
         # 文字が入力されてないなら全部返す
         # 入力されているなら検索して返す
         if query=="":
             song_search = [ e for e in SongData.objects.all() ]
         else:
-            song_search = [ e for e in SongData.objects.filter(Q(song_name__icontains=query) | Q(song_auther__icontains=query) ) ]
+            # 検索設定に沿って絞り込む
+            # 検索
+            song_search_by_name = SongData.objects.filter(song_name__icontains=query)
+            # song_search_by_reading = SongData.objects.filter(...)
+            song_search_by_artists = SongData.objects.filter(song_auther__icontains=query)
+
+            # 必要に合わせて結合
+            song_search_tmp = SongData.objects.none()
+            if is_use_name:
+                song_search_tmp = song_search_tmp|song_search_by_name
+            # if is_use_reading:
+            #     song_search_tmp = song_search_tmp|song_search_by_reading
+            if is_use_artists:
+                song_search_tmp = song_search_tmp|song_search_by_artists
+
+            # リストにして完成
+            song_search = [ e for e in song_search_tmp]
 
         # 整える
         search_hit_count = len(song_search)
@@ -39,7 +60,10 @@ def const_search(request):
 
         # 多すぎたらこうすうる
         if search_hit_count  > 30:
-            song_response.append(render_to_string("const_search/too_many_result_info.html"))
+            song_response.append(render_to_string("const_search/result_info.html",context={}))
+        # 少なすぎたらこうする
+        if search_hit_count  == 0:
+            song_response.append(render_to_string("const_search/result_info.html",context={"info_text":"検索結果が0件だよ〜 ワードや設定を確認してみてね"}))
 
         # Jsonとして返す
         d = {
