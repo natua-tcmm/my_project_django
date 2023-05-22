@@ -169,9 +169,15 @@
 <!-- Ajaxとか -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+    // ロード時に検索窓を選択状態にする
+    window.onload = function(){
+        $("#query").select()
+    }
+
     // クリアボタンの処理
     $("#clear-button").on("click", function (e) {
         $("#query").val("")
+        $("#query").select()
         search_songs(e)
     })
 
@@ -197,7 +203,6 @@
         }
 
     })
-
 
     // 検索ワードの送信
     $('#ajax-search').on('submit input', function (e) {
