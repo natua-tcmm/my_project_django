@@ -8,10 +8,24 @@
             <h5 class="mb-1">{{song.song_name}}</h5>
             <span class="text-secondary">{{song.song_auther}}</span>
         </div>
+
         <!-- 定数 -->
-        <div class="col-sm-auto d-flex justify-content-end align-items-center border-master">
-            <h5 class="mb-0 font-weight-bold">{{song.master_const}}</h5>
+        <div class="col-sm-auto justify-content-end align-items-center border-expert constdisp_expert" style="display: none;">
+            <h5 class="mb-0">{% if song.expert_const != 0 %}<span
+                    class="font-weight-bold">{{song.expert_const}}</span>{% else %}<span class="text-black-50 h6">No
+                    Data</span>{% endif %}</h5>
         </div>
+        <div class="col-sm-auto justify-content-end align-items-center border-master constdisp_master" style="display: flex;">
+            <h5 class="mb-0">{% if song.master_const != 0 %}<span
+                    class="font-weight-bold">{{song.master_const}}</span>{% else %}<span class="text-black-50 h6">No
+                    Data</span>{% endif %}</h5>
+        </div>
+        <div class="col-sm-auto justify-content-end align-items-center border-ultima constdisp_ultima" style="display: none;">
+            <h5 class="mb-0">{% if song.ultima_const != 0 %}<span
+                    class="font-weight-bold">{{song.ultima_const}}</span>{% else %}<span class="text-black-50 h6">No
+                    Data</span>{% endif %}</h5>
+        </div>
+
     </div>
 </a>
 <!-- 折りたたみ内 -->
