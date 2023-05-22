@@ -46,13 +46,13 @@ SESSION_COOKIE_SECURE = True
 
 # 有効となるアプリケーション
 INSTALLED_APPS = [
+    "my_apps.apps.MyAppsConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "my_apps.apps.MyAppsConfig",
 ]
 
 # 有効となるミドルウェア
