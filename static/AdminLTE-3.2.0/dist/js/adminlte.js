@@ -1955,7 +1955,7 @@
   var CLASS_NAME_IS_OPENING$1 = 'sidebar-is-opening';
   var CLASS_NAME_CLOSED = 'sidebar-closed';
   var Default$5 = {
-    // autoCollapseSize: 992,
+    autoCollapseSize: 992,
     enableRemember: false,
     noTransitionAfterReload: true,
     animationSpeed: 300
@@ -2039,11 +2039,11 @@
 
       var $bodySelector = $__default["default"](SELECTOR_BODY);
 
-      if ($__default["default"](window).width() <= this._options.autoCollapseSize) {
+      if ( true /*$__default["default"](window).width() <= this._options.autoCollapseSize*/ ) {
         if (!$bodySelector.hasClass(CLASS_NAME_OPEN$3)) {
           this.collapse();
         }
-      } else if (resize === true) {
+      } else if ( false /*resize === true*/ ) {
         if ($bodySelector.hasClass(CLASS_NAME_OPEN$3)) {
           $bodySelector.removeClass(CLASS_NAME_OPEN$3);
         } else if ($bodySelector.hasClass(CLASS_NAME_CLOSED)) {

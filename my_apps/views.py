@@ -24,7 +24,7 @@ def preview404(request):
 def const_search(request):
 
     song_data = SongData.objects.all()
-    context = { "title":"クイック定数検索", "is_beta":False, "is_app":True, "song_data":song_data, "song_data_len":len(song_data) }
+    context = { "title":"クイック定数検索", "is_beta":True, "is_app":True, "song_data":song_data, "song_data_len":len(song_data) }
 
     if request.POST:
 

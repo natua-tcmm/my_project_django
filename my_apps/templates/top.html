@@ -1,5 +1,7 @@
 {% extends './base/base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'top/style.css' %}">
 <!-- Content Wrapper. Contains page content -->
 <div class="container">
     <div class="content-header">
@@ -24,6 +26,34 @@
 
             <!-- ここにいろいろ書く -->
             <p>トップページだよ</p>
+
+            <div class="row">
+
+                <div class="col-xl-4 col-md-6 col-12">
+                    <a href="{% url 'my_apps:const_search_page' %}" class="small-box bg-light app-box">
+                        <div class="inner p-4">
+                            <h4 class="app-name font-weight-bold">クイック定数検索</h4>
+                            <p class="app-desc">CHUNITHM・オンゲキの譜面定数をささっと検索できます。</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4 col-md-6 col-12">
+                    <a href="#" class="small-box bg-light app-box">
+                        <div class="inner p-4">
+                            <h4 class="app-name font-weight-bold">アプリ名</h4>
+                            <p class="app-desc">説明</p>
+                        </div>
+                        <div class="icon">
+                            <i class="far fa-question-circle"></i>
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
 
         </div><!-- /.container-fluid -->
     </section>
