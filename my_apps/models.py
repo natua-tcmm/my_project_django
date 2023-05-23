@@ -1,4 +1,5 @@
 from django.db import models
+import requests
 
 # Create your models here.
 
@@ -129,3 +130,12 @@ class SongDataManager(models.Manager):
 
         print("取得できたよん")
         return new_songdata
+
+    @classmethod
+    def get_rights_data(cls):
+        """
+        著作権情報を取得するメソッド
+        """
+        rights_data= requests.get("https://chunithm.sega.jp/storage/json/rightsInfo.json")
+        rights_data.encoding = rights_data.apparent_encoding
+        return rights_data.json()

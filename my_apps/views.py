@@ -3,9 +3,8 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.db.models import Q
 
-from .models import SongData
+from .models import SongData,SongDataManager
 
-import requests,time
 
 # --------------------------------------------------
 
@@ -81,10 +80,8 @@ def const_search(request):
 
         return JsonResponse(d)
 
-    # 著作権表示
-    response= requests.get("https://chunithm.sega.jp/storage/json/rightsInfo.json")
-    response.encoding = response.apparent_encoding
-    context["rights"]  = response.json()
+    # 著作権表示を取得
+    context["rights"]  = SongDataManager.get_rights_data()
 
     # renderする
     return render(request, 'const_search.html',context=context)
